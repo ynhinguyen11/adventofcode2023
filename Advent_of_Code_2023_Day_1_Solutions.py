@@ -102,8 +102,10 @@ def main():
     # --------------------------------------------------------
     sum_calibration_value = 0
     # Create a dictionary to convert numeric words to numbers.
+    # Leading and trailing letters are to account for overlapping numeric words
+    # like eightwo = 82
     # Did not include numeric words higher than 9 because data doesn't contain those words
-    # Checked if data contains 'ty', 'teen', 'eleven', 'twelve', 'thirteen', & 'ten'
+    # Checked if data contains 'ty', 'teen', 'eleven', 'twelve', & 'ten'
     num_dict={
         'nine': 'n9e',
         'eight': 'e8t',
