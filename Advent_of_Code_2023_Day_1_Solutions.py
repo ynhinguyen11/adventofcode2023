@@ -36,11 +36,7 @@ def day1_part1_extract_numbers_in_string(sum_calibration_value, calibration):
     extracted_numbers = [str(character) for character in calibration if character.isdigit()]
     
     # Join only the first and last element in the list to make the two digits value
-    try:
-        calibration_value = int("".join(extracted_numbers[::len(extracted_numbers)-1]))
-    except ValueError:
-        # The digit duplicates to make two digits when only one digit exists
-        calibration_value = int(extracted_numbers[0] + extracted_numbers[0])
+    calibration_value = int(extracted_numbers[0] + extracted_numbers[-1])
         
     # Sum all calibration values
     sum_calibration_value += calibration_value
