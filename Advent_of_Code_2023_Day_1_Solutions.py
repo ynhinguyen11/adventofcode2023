@@ -10,7 +10,6 @@ Created on Fri Dec  1 12:52:42 2023
 
 import pandas as pd
 import os
-import itertools
 
 
 def day1_part1_extract_numbers_in_string(sum_calibration_value, calibration):
@@ -66,24 +65,12 @@ def day1_part2_replace_numeric_words_with_numbers(sum_calibration_value, calibra
         SUM VALUE OF THE CURRENT AND PREVIOUS CALIBRATION VALUES.
 
     """
-    
-    # Search through the string from the first character to the 3rd from last character
-    # in sections of 3 - 5 characters length for numeric words
-    str_length = len(calibration)
-    for str_start, str_range in itertools.product(range(0,str_length-1), [3,4,5]):
-        str_end = str_start + str_range
-        # Skip any end position that is greater than the string length minus 1
-        if  str_end > str_length:
-            continue
-        # Replace numeric words with number
-        for numeric_word in num_dict:
-            if numeric_word in calibration[str_start:str_end]:
-                # Add in the last letter of the numeric word with the number
-                # in case the last letter connects to another numeric word
-                # For example: eightwo = 82
-                calibration = calibration.replace(numeric_word, 
-                                                  num_dict[numeric_word] + 
-                                                  calibration[str_start:str_end][-1])
+
+    # Replace numeric words with number
+    for numeric_word in num_dict:
+        if numeric_word in calibration:
+            calibration = calibration.replace(numeric_word, num_dict[numeric_word])
+            
     # Extract, create, and sum the calibration values
     sum_calibration_value = day1_part1_extract_numbers_in_string(sum_calibration_value, calibration)
         
@@ -118,15 +105,15 @@ def main():
     # Did not include numeric words higher than 9 because data doesn't contain those words
     # Checked if data contains 'ty', 'teen', 'eleven', 'twelve', 'thirteen', & 'ten'
     num_dict={
-        'nine': '9',
-        'eight': '8',
-        'seven': '7',
-        'six': '6',
-        'five': '5',
-        'four': '4',
-        'three': '3',
-        'two': '2',
-        'one': '1'}
+        'nine': 'n9e',
+        'eight': 'e8t',
+        'seven': 's7n',
+        'six': 's6x',
+        'five': 'f5e',
+        'four': 'f4r',
+        'three': 't3e',
+        'two': 't2o',
+        'one': 'o1e'}
     for calibration in calibration_doc[0]:
         sum_calibration_value = day1_part2_replace_numeric_words_with_numbers(
             sum_calibration_value, calibration, num_dict)
